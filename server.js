@@ -13,18 +13,29 @@ app.use(express.json());
 // Connect to database
 const db = mysql.createConnection(
     {
+        // Your MySQL host:
         host: process.env.MYSQL_HOST,
         // Your MySQL username:
         user: process.env.MYSQL_USERNAME,
-        // Your MySQL password
+        // Your MySQL password:
         password: process.env.MYSQL_PASSWORD,
+        // Your MySQL database
         database: process.env.MYSQL_DBNAME
     },
     console.log('Connected to the election database.')
 );
 
+// Returns all candidates
 db.query(`SELECT * FROM candidates`, (err, rows) => {
     console.log(rows);
+});
+
+// GET a single candidate
+db.query(`SELECT * FROM candidates WHERE id = 1`, (err, row) => {
+    if (err) {
+        console.log(err);
+    }
+    console.log(row);
 });
 
 
